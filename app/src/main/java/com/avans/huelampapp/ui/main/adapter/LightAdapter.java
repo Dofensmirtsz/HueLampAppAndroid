@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.avans.huelampapp.R;
 import com.avans.huelampapp.data.model.Light;
+import com.avans.huelampapp.ui.detail.DetailActivity;
 import com.avans.huelampapp.util.HueUtil;
 
 import java.util.Map;
@@ -37,7 +38,12 @@ public class LightAdapter extends RecyclerView.Adapter<LightAdapter.ViewHolder> 
         Light item = getItem(position);
         int color = HueUtil.getColor(item);
         holder.name.setText(item.getName());
-        HueUtil.createIsometricLight(holder.isometricView, color, item.getState().getStatus());
+        HueUtil.createIsometricLight(holder.isometricView,
+                item.getState().getStatus() ? color : android.graphics.Color.HSVToColor(new float[]{1.0f ,0.0f ,0.8f}),
+                item.getState().getStatus());
+        holder.itemView.setOnClickListener(view -> {
+            holder.itemView.getContext().startActivity(DetailActivity.getStartIntent(holder.itemView.getContext(), keys[position], item));
+        });
     }
 
     private Light getItem(int position) {

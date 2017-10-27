@@ -3,6 +3,7 @@ package com.avans.huelampapp.network;
 import com.avans.huelampapp.BuildConfig;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -22,7 +23,11 @@ public class ServiceProvider {
     private OkHttpClient.Builder httpClient;
 
     private ServiceProvider(){
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
         builder = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
                 .client(httpClient.build())

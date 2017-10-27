@@ -23,7 +23,7 @@ public class SimpleState implements Parcelable {
     @SerializedName("hue")
     private  Integer hue;
 
-    private SimpleState(boolean status, Integer saturation, Integer brightness, Integer hue) {
+    public SimpleState(boolean status, Integer saturation, Integer brightness, Integer hue) {
         this.status = status;
         this.saturation = saturation;
         this.brightness = brightness;

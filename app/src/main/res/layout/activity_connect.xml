@@ -52,6 +52,7 @@
                 android:background="@drawable/bg_cirle_gradient_color"
                 android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:onClick="connect"
                 android:textSize="18dp"
                 android:text="Connect"/>
         </LinearLayout>

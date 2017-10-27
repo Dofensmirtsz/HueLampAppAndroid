@@ -3,11 +3,11 @@ package com.avans.huelampapp.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Succes implements Parcelable {
+public class Success implements Parcelable {
 
     private String username;
 
-    public Succes(String username) {
+    public Success(String username) {
         this.username = username;
     }
 
@@ -15,7 +15,7 @@ public class Succes implements Parcelable {
         return username;
     }
 
-    protected Succes(Parcel in) {
+    protected Success(Parcel in) {
         username = in.readString();
     }
 
@@ -30,15 +30,15 @@ public class Succes implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Succes> CREATOR = new Parcelable.Creator<Succes>() {
+    public static final Parcelable.Creator<Success> CREATOR = new Parcelable.Creator<Success>() {
         @Override
-        public Succes createFromParcel(Parcel in) {
-            return new Succes(in);
+        public Success createFromParcel(Parcel in) {
+            return new Success(in);
         }
 
         @Override
-        public Succes[] newArray(int size) {
-            return new Succes[size];
+        public Success[] newArray(int size) {
+            return new Success[size];
         }
     };
 }

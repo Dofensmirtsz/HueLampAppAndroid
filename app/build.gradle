@@ -14,7 +14,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
 
-        buildConfigField 'String', 'API_URL', '"http://10.0.2.2:80/"'
+        buildConfigField 'String', 'API_URL', '"http://192.168.1.179/"'
     }
     buildTypes {
         release {
@@ -50,6 +50,10 @@ dependencies {
 
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+
+    compile 'com.github.madrapps:pikolo:1.1.6'
+
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.google.code.gson:gson:2.8.1'

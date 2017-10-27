@@ -26,7 +26,6 @@ public class ConnectActivity extends BaseActivity implements ConnectView {
         return intent;
     }
 
-    @SuppressLint("MissingSuperCall")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
