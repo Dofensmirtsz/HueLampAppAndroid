@@ -1,4 +1,6 @@
 package com.avans.huelampapp.ui.detail;
 
-public class DetailActivity {
+import com.avans.huelampapp.ui.base.BaseActivity;
+
+public class DetailActivity extends BaseActivity {
 }

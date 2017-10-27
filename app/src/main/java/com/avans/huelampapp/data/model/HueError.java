@@ -3,7 +3,7 @@ package com.avans.huelampapp.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Error implements Parcelable {
+public class HueError implements Parcelable {
 
     private String type;
 
@@ -11,7 +11,7 @@ public class Error implements Parcelable {
 
     private String description;
 
-    public Error(String type, String address, String description) {
+    public HueError(String type, String address, String description) {
         this.type = type;
         this.address = address;
         this.description = description;
@@ -29,7 +29,7 @@ public class Error implements Parcelable {
         return description;
     }
 
-    protected Error(Parcel in) {
+    protected HueError(Parcel in) {
         type = in.readString();
         address = in.readString();
         description = in.readString();
@@ -48,15 +48,15 @@ public class Error implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Error> CREATOR = new Parcelable.Creator<Error>() {
+    public static final Parcelable.Creator<HueError> CREATOR = new Parcelable.Creator<HueError>() {
         @Override
-        public Error createFromParcel(Parcel in) {
-            return new Error(in);
+        public HueError createFromParcel(Parcel in) {
+            return new HueError(in);
         }
 
         @Override
-        public Error[] newArray(int size) {
-            return new Error[size];
+        public HueError[] newArray(int size) {
+            return new HueError[size];
         }
     };
 }

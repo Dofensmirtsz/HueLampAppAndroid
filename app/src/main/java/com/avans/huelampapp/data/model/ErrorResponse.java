@@ -5,18 +5,18 @@ import android.os.Parcelable;
 
 public class ErrorResponse implements Parcelable {
 
-    private Error error;
+    private HueError hueError;
 
-    public ErrorResponse(Error error) {
-        this.error = error;
+    public ErrorResponse(HueError hueError) {
+        this.hueError = hueError;
     }
 
-    public Error getError() {
-        return error;
+    public HueError getHueError() {
+        return hueError;
     }
 
     protected ErrorResponse(Parcel in) {
-        error = (Error) in.readValue(Error.class.getClassLoader());
+        hueError = (HueError) in.readValue(HueError.class.getClassLoader());
     }
 
     @Override
@@ -26,7 +26,7 @@ public class ErrorResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(error);
+        dest.writeValue(hueError);
     }
 
     @SuppressWarnings("unused")

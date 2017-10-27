@@ -1,4 +1,8 @@
 package com.avans.huelampapp.ui.connect;
 
-public class ConnectView {
+import com.avans.huelampapp.ui.base.MvpView;
+
+public interface ConnectView extends MvpView{
+
+    void showSuccess(String succes);
 }
