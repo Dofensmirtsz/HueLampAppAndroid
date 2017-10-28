@@ -39,7 +39,8 @@
                 android:id="@+id/image_color"
                 android:layout_width="128dp"
                 android:layout_height="128dp"
-                android:background="@color/white"/>
+                android:layout_gravity="center"
+                android:src="@drawable/bg_circle_white"/>
 
         </FrameLayout>
 

@@ -7,6 +7,8 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,6 +17,7 @@ import com.avans.huelampapp.data.DataManager;
 import com.avans.huelampapp.data.model.HueError;
 import com.avans.huelampapp.data.model.Light;
 import com.avans.huelampapp.ui.base.BaseActivity;
+import com.avans.huelampapp.util.HueUtil;
 import com.madrapps.pikolo.HSLColorPicker;
 import com.madrapps.pikolo.listeners.SimpleColorSelectionListener;
 
@@ -30,6 +33,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
     private HSLColorPicker colorPicker;
     private ImageView indicator;
     private String key;
+    private Toolbar toolbar;
+
     public static Intent getStartIntent(Context context, String key, Light item) {
         Intent intent = new Intent(context, DetailActivity.class);
         intent.putExtra(KEY, key);
@@ -47,13 +52,19 @@ public class DetailActivity extends BaseActivity implements DetailView {
         key = getIntent().getStringExtra(KEY);
         colorPicker = (HSLColorPicker) findViewById(R.id.color_picker);
         indicator = (ImageView) findViewById(R.id.image_color);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(light.getName());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        colorPicker.setColor(HueUtil.getColor(light));
+        DrawableCompat.setTint(indicator.getDrawable(), HueUtil.getColor(light));
         colorPicker.setColorSelectionListener(new SimpleColorSelectionListener(){
             @Override
             public void onColorSelected(int color) {
                 float[] hsv = new float[3];
                 Color.colorToHSV(color, hsv);
-                indicator.setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+                DrawableCompat.setTint(indicator.getDrawable(), color);
                 presenter.updateLight(light,key, hsv);
             }
         });

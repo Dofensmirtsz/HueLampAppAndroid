@@ -39,6 +39,8 @@ public class ConnectActivity extends BaseActivity implements ConnectView {
         background = (ImageView) findViewById(R.id.connect_image_background);
         buttonBackground = (ImageView) findViewById(R.id.connect_image_button_background);
 
+        presenter.check();
+
         FlowingGradientClass flowingGradientBg = new FlowingGradientClass();
         flowingGradientBg.setBackgroundResource(R.drawable.translate_regular)
                 .onImageView(background)
@@ -51,7 +53,6 @@ public class ConnectActivity extends BaseActivity implements ConnectView {
                 .setTransitionDuration(4000)
                 .start();
 
-        presenter.check();
     }
 
     public void connect(View view) {
