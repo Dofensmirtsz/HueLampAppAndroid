@@ -1,24 +1,28 @@
 package com.avans.huelampapp.ui.connect;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.avans.huelampapp.R;
 import com.avans.huelampapp.data.DataManager;
 import com.avans.huelampapp.data.model.HueError;
 import com.avans.huelampapp.ui.base.BaseActivity;
 import com.avans.huelampapp.ui.main.MainActivity;
+import com.dynamitechetan.flowinggradient.FlowingGradientClass;
 
 public class ConnectActivity extends BaseActivity implements ConnectView {
 
-    ConnectPresenter presenter;
+    private ConnectPresenter presenter;
 
-    View root;
+    private View root;
+
+    ImageView background;
+    ImageView buttonBackground;
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, ConnectActivity.class);
@@ -32,6 +36,20 @@ public class ConnectActivity extends BaseActivity implements ConnectView {
         setContentView(R.layout.activity_connect);
         presenter = new ConnectPresenter(DataManager.instance(this), this);
         root = findViewById(R.id.rootview);
+        background = (ImageView) findViewById(R.id.connect_image_background);
+        buttonBackground = (ImageView) findViewById(R.id.connect_image_button_background);
+
+        FlowingGradientClass flowingGradientBg = new FlowingGradientClass();
+        flowingGradientBg.setBackgroundResource(R.drawable.translate_regular)
+                .onImageView(background)
+                .setTransitionDuration(4000)
+                .start();
+
+        FlowingGradientClass flowingGradientBgButton = new FlowingGradientClass();
+        flowingGradientBgButton.setBackgroundResource(R.drawable.translate_rounded)
+                .onImageView(buttonBackground)
+                .setTransitionDuration(4000)
+                .start();
 
         presenter.check();
     }
