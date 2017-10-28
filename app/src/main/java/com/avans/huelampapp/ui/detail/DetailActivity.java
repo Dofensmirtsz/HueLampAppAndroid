@@ -8,9 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 
@@ -27,15 +27,17 @@ public class DetailActivity extends BaseActivity implements DetailView {
 
     private static final String LIGHT = "light";
     private static final String KEY = "key";
-    private DetailPresenter presenter;
-    private View root;
+    private String key;
     private Light light;
+
+    private DetailPresenter presenter;
+    private Toolbar toolbar;
+    private View root;
+
     private HSLColorPicker colorPicker;
     private ImageView indicator;
-    private String key;
-    private Toolbar toolbar;
-    private Switch aSwitch;
-
+    private Switch statusSwitch;
+    private EditText editName;
 
     public static Intent getStartIntent(Context context, String key, Light item) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -49,13 +51,17 @@ public class DetailActivity extends BaseActivity implements DetailView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         presenter = new DetailPresenter(DataManager.instance(this), this);
+
         root = findViewById(R.id.rootview);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         light = getIntent().getParcelableExtra(LIGHT);
         key = getIntent().getStringExtra(KEY);
+
         colorPicker = (HSLColorPicker) findViewById(R.id.color_picker);
         indicator = (ImageView) findViewById(R.id.image_color);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        aSwitch = (Switch) findViewById(R.id.switch1);
+        statusSwitch = (Switch) findViewById(R.id.detail_switch_light_status);
+        editName = (EditText) findViewById(R.id.edit_light_name);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(light.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,18 +74,12 @@ public class DetailActivity extends BaseActivity implements DetailView {
                 float[] hsv = new float[3];
                 Color.colorToHSV(color, hsv);
                 DrawableCompat.setTint(indicator.getDrawable(), color);
-                presenter.toggleLight(light,key, hsv);
+                presenter.toggleLight(key, hsv);
             }
         });
 
-//        Log.i("SWITCH", "" + light.getState().getStatus());
-        aSwitch.setChecked(light.getState().getStatus());
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                presenter.toggleLight(light, key);
-            }
-        });
+        statusSwitch.setChecked(light.getState().getStatus());
+        statusSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> presenter.toggleLight(light, key));
     }
 
     @Override
@@ -91,7 +91,25 @@ public class DetailActivity extends BaseActivity implements DetailView {
     }
 
     @Override
-    public void setStatus(boolean status) {
-        aSwitch.setChecked(status);
+    public void showStatus(boolean status) {
+        statusSwitch.setChecked(status);
+    }
+
+
+
+    @Override
+    public void showSuccess(String desc) {
+        Snackbar.make(root, desc, Snackbar.LENGTH_SHORT);
+    }
+
+    @Override
+    public void updateName(String name) {
+        getSupportActionBar().setTitle(name);
+    }
+
+    public void changeName(View view) {
+        if (!editName.getText().toString().isEmpty()) {
+            presenter.changeLightName(key, editName.getText().toString());
+        }
     }
 }

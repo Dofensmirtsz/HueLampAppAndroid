@@ -60,4 +60,8 @@ public class DataManager {
         return hueService.getLightState(preferencesHelper.getUsername(), id);
     }
 
+    public Call<String> updateLightName(String id, String name) {
+        return hueService.setLightName(preferencesHelper.getUsername(), id, name);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.avans.huelampapp.ui.detail;
 import android.util.Log;
 
 import com.avans.huelampapp.data.DataManager;
+import com.avans.huelampapp.data.model.HueError;
 import com.avans.huelampapp.data.model.Light;
 import com.avans.huelampapp.data.model.SimpleState;
 
@@ -22,7 +23,7 @@ public class DetailPresenter {
         this.view = view;
     }
 
-    public void toggleLight(Light light, String key, float[] hsv) {
+    public void toggleLight(String key, float[] hsv) {
         dataManager.updateLightState(key,
                 new SimpleState(true,
                         Math.round(hsv[1] * 254),
@@ -41,14 +42,13 @@ public class DetailPresenter {
         });
     }
 
-    public void toggleLight(Light light, String key){
-        dataManager.updateLightState(key,
+    public void toggleLight(Light light, String id){
+        dataManager.updateLightState(id,
                 new SimpleState(!light.getState().getStatus()))
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                        Timber.d(response.body());
-                        view.setStatus(!light.getState().getStatus());
+                        view.showStatus(!light.getState().getStatus());
                     }
 
                     @Override
@@ -56,5 +56,19 @@ public class DetailPresenter {
                         Timber.e(t);
                     }
                 });
+    }
+
+    public void changeLightName(String id, String name) {
+        dataManager.updateLightName(id, name).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                view.showSuccess("Updated light name");
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                view.showError(new HueError("", "", t.getLocalizedMessage()));
+            }
+        });
     }
 }
