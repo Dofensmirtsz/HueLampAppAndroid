@@ -3,14 +3,16 @@ package com.avans.huelampapp.ui.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.avans.huelampapp.R;
 import com.avans.huelampapp.data.DataManager;
@@ -20,8 +22,6 @@ import com.avans.huelampapp.ui.base.BaseActivity;
 import com.avans.huelampapp.util.HueUtil;
 import com.madrapps.pikolo.HSLColorPicker;
 import com.madrapps.pikolo.listeners.SimpleColorSelectionListener;
-
-import timber.log.Timber;
 
 public class DetailActivity extends BaseActivity implements DetailView {
 
@@ -34,6 +34,8 @@ public class DetailActivity extends BaseActivity implements DetailView {
     private ImageView indicator;
     private String key;
     private Toolbar toolbar;
+    private Switch aSwitch;
+
 
     public static Intent getStartIntent(Context context, String key, Light item) {
         Intent intent = new Intent(context, DetailActivity.class);
@@ -53,6 +55,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
         colorPicker = (HSLColorPicker) findViewById(R.id.color_picker);
         indicator = (ImageView) findViewById(R.id.image_color);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        aSwitch = (Switch) findViewById(R.id.switch1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(light.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,10 +68,18 @@ public class DetailActivity extends BaseActivity implements DetailView {
                 float[] hsv = new float[3];
                 Color.colorToHSV(color, hsv);
                 DrawableCompat.setTint(indicator.getDrawable(), color);
-                presenter.updateLight(light,key, hsv);
+                presenter.toggleLight(light,key, hsv);
             }
         });
 
+//        Log.i("SWITCH", "" + light.getState().getStatus());
+        aSwitch.setChecked(light.getState().getStatus());
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.toggleLight(light, key);
+            }
+        });
     }
 
     @Override
@@ -77,5 +88,10 @@ public class DetailActivity extends BaseActivity implements DetailView {
             return;
         }
         Snackbar.make(root, error.getDescription(), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setStatus(boolean status) {
+        aSwitch.setChecked(status);
     }
 }

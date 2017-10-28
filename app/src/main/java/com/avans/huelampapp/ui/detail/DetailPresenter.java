@@ -1,5 +1,7 @@
 package com.avans.huelampapp.ui.detail;
 
+import android.util.Log;
+
 import com.avans.huelampapp.data.DataManager;
 import com.avans.huelampapp.data.model.Light;
 import com.avans.huelampapp.data.model.SimpleState;
@@ -20,7 +22,7 @@ public class DetailPresenter {
         this.view = view;
     }
 
-    public void updateLight(Light light, String key, float[] hsv) {
+    public void toggleLight(Light light, String key, float[] hsv) {
         dataManager.updateLightState(key,
                 new SimpleState(true,
                         Math.round(hsv[1] * 254),
@@ -37,5 +39,22 @@ public class DetailPresenter {
                 Timber.e(t);
             }
         });
+    }
+
+    public void toggleLight(Light light, String key){
+        dataManager.updateLightState(key,
+                new SimpleState(!light.getState().getStatus()))
+                .enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Timber.d(response.body());
+                        view.setStatus(!light.getState().getStatus());
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Timber.e(t);
+                    }
+                });
     }
 }

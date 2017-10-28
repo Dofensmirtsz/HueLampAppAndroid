@@ -49,6 +49,16 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(presenter != null){
+            presenter.loadLights();
+        }
+
+    }
+
+    @Override
     public void showLights(Map<String, Light> lights) {
         recyclerView.setAdapter(new LightAdapter(lights));
     }

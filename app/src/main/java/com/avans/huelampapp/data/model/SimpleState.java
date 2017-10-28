@@ -30,6 +30,10 @@ public class SimpleState implements Parcelable {
         this.hue = hue;
     }
 
+    public SimpleState(boolean status){
+        this.status = status;
+    }
+
     public boolean isStatus() {
         return status;
     }
