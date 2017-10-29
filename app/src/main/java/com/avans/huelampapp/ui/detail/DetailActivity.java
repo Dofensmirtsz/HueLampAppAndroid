@@ -9,7 +9,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -74,7 +73,7 @@ public class DetailActivity extends BaseActivity implements DetailView {
                 float[] hsv = new float[3];
                 Color.colorToHSV(color, hsv);
                 DrawableCompat.setTint(indicator.getDrawable(), color);
-                presenter.toggleLight(key, hsv);
+                presenter.changeLightColor(key, hsv);
             }
         });
 
@@ -94,8 +93,6 @@ public class DetailActivity extends BaseActivity implements DetailView {
     public void showStatus(boolean status) {
         statusSwitch.setChecked(status);
     }
-
-
 
     @Override
     public void showSuccess(String desc) {

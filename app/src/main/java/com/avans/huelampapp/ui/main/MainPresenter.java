@@ -3,6 +3,8 @@ package com.avans.huelampapp.ui.main;
 import com.avans.huelampapp.data.DataManager;
 import com.avans.huelampapp.data.model.HueError;
 import com.avans.huelampapp.data.model.Light;
+import com.avans.huelampapp.data.model.SimpleState;
+import com.avans.huelampapp.data.model.SuccessResponse;
 
 import java.util.Map;
 
@@ -35,6 +37,25 @@ public class MainPresenter {
                 view.showError(new HueError("", "", "unauthorized"));
             }
         });
+
+    }
+
+    public void toggleLight(String id, Light light) {
+
+        dataManager.updateLightState(id,
+                new SimpleState(!light.getState().getStatus()))
+                .enqueue(new Callback<SuccessResponse[]>() {
+                    @Override
+                    public void onResponse(Call<SuccessResponse[]> call, Response<SuccessResponse[]> response) {
+                        loadLights();
+                    }
+
+                    @Override
+                    public void onFailure(Call<SuccessResponse[]> call, Throwable t) {
+                        loadLights();
+                    }
+                });
+
 
     }
 }

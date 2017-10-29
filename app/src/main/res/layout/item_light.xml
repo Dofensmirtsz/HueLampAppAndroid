@@ -20,15 +20,30 @@
             android:layout_height="128dp"
             />
 
-        <TextView
-            android:id="@+id/light_name"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp"
-            android:textColor="@color/white"
             android:layout_margin="16dp"
-            tools:text="name" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/light_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                tools:text="name" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:id="@+id/light_switch_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/white"
+                android:text="Toggle Light: "
+                app:trackTint="@color/gray"/>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -6,6 +6,7 @@ import com.avans.huelampapp.BuildConfig;
 import com.avans.huelampapp.data.local.PreferencesHelper;
 import com.avans.huelampapp.data.model.DeviceBody;
 import com.avans.huelampapp.data.model.Light;
+import com.avans.huelampapp.data.model.NameUpdate;
 import com.avans.huelampapp.data.model.SimpleState;
 import com.avans.huelampapp.data.model.SuccessResponse;
 import com.avans.huelampapp.data.remote.HueService;
@@ -52,7 +53,7 @@ public class DataManager {
         return hueService.getLight(preferencesHelper.getUsername(), id);
     }
 
-    public Call<String> updateLightState(String id, SimpleState state) {
+    public Call<SuccessResponse[]> updateLightState(String id, SimpleState state) {
         return hueService.manageLightState(preferencesHelper.getUsername(), id, state);
     }
 
@@ -60,8 +61,8 @@ public class DataManager {
         return hueService.getLightState(preferencesHelper.getUsername(), id);
     }
 
-    public Call<String> updateLightName(String id, String name) {
-        return hueService.setLightName(preferencesHelper.getUsername(), id, name);
+    public Call<SuccessResponse[]> updateLightName(String id, String name) {
+        return hueService.setLightName(preferencesHelper.getUsername(), id, new NameUpdate(name));
     }
 
 }

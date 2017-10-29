@@ -3,12 +3,12 @@ package com.avans.huelampapp.ui.main;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 
 import com.avans.huelampapp.R;
 import com.avans.huelampapp.data.DataManager;
@@ -49,6 +49,11 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -60,7 +65,7 @@ public class MainActivity extends BaseActivity implements MainView {
 
     @Override
     public void showLights(Map<String, Light> lights) {
-        recyclerView.setAdapter(new LightAdapter(lights));
+        recyclerView.setAdapter(new LightAdapter(lights, onCheckedListener));
     }
 
     @Override
@@ -72,4 +77,6 @@ public class MainActivity extends BaseActivity implements MainView {
         finish();
 
     }
+
+    private LightAdapter.OnCheckedListener onCheckedListener = ((key, light) -> presenter.toggleLight(key, light));
 }
