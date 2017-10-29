@@ -24,6 +24,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="right"
                 android:layout_marginRight="16dp"
+                android:trackTint="@color/black"
                 />
 
         </android.support.v7.widget.Toolbar>
