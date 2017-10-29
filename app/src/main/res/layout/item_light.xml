@@ -10,7 +10,7 @@
     android:layout_marginTop="8dp">
 
     <LinearLayout
-        android:background="@color/dark"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textColor="@color/white"
+                android:textColor="@color/dark"
                 tools:text="name" />
 
             <android.support.v7.widget.SwitchCompat
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/white"
+                android:textColor="@color/dark"
                 android:text="Toggle Light: "
                 app:trackTint="@color/gray"/>
         </LinearLayout>

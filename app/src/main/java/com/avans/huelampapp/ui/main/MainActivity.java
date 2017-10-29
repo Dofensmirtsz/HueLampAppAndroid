@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import com.avans.huelampapp.R;
@@ -19,6 +19,7 @@ import com.avans.huelampapp.data.model.Light;
 import com.avans.huelampapp.ui.base.BaseActivity;
 import com.avans.huelampapp.ui.connect.ConnectActivity;
 import com.avans.huelampapp.ui.main.adapter.LightAdapter;
+import com.dynamitechetan.flowinggradient.FlowingGradientClass;
 
 import java.util.Map;
 
@@ -29,10 +30,11 @@ public class MainActivity extends BaseActivity implements MainView {
     RecyclerView recyclerView;
     Toolbar toolbar;
 
-    Switch aSwitch;
+    Switch toggleAllSwitch;
+    ImageView background;
 
     public static Intent getStartIntent(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);;
+        Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
 
@@ -45,7 +47,6 @@ public class MainActivity extends BaseActivity implements MainView {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        aSwitch = (Switch) findViewById(R.id.switch_all);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Lampkes");
@@ -53,12 +54,18 @@ public class MainActivity extends BaseActivity implements MainView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         presenter.loadLights();
 
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                presenter.toggleAllLights(isChecked);
-            }
-        });
+        toggleAllSwitch = (Switch) findViewById(R.id.switch_all);
+        toggleAllSwitch.setOnCheckedChangeListener(
+                (buttonView, isChecked)
+                        -> presenter.toggleAllLights(isChecked)
+        );
+
+        background = (ImageView) findViewById(R.id.main_image_background);
+        FlowingGradientClass flowingGradientBg = new FlowingGradientClass();
+        flowingGradientBg.setBackgroundResource(R.drawable.translate_regular)
+                .onImageView(background)
+                .setTransitionDuration(4000)
+                .start();
     }
 
     @Override
@@ -70,7 +77,7 @@ public class MainActivity extends BaseActivity implements MainView {
     protected void onResume() {
         super.onResume();
 
-        if(presenter != null){
+        if (presenter != null) {
             presenter.loadLights();
         }
 
