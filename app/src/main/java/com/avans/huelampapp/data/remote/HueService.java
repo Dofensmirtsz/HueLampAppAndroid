@@ -34,6 +34,9 @@ public interface HueService {
     @PUT(API + "{username}/lights/{id}/state")
     Call<SuccessResponse[]> manageLightState(@Path(value = "username") String username, @Path(value = "id") String id, @Body SimpleState state);
 
+    @PUT(API + "{username}/groups/{id}/action")
+    Call<SuccessResponse[]> manageAllLightStates(@Path(value = "username") String username, @Path(value = "id") String id, @Body SimpleState state);
+
     @PUT(API + "{username}/lights/{id}")
     Call<SuccessResponse[]> setLightName(@Path(value = "username") String username, @Path(value = "id") String id, @Body NameUpdate name);
 

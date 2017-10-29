@@ -9,6 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.avans.huelampapp.R;
 import com.avans.huelampapp.data.DataManager;
@@ -27,8 +29,11 @@ public class MainActivity extends BaseActivity implements MainView {
     RecyclerView recyclerView;
     Toolbar toolbar;
 
+    Switch aSwitch;
+
     public static Intent getStartIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);;
+        return intent;
     }
 
     @SuppressLint("MissingSuperCall")
@@ -40,12 +45,20 @@ public class MainActivity extends BaseActivity implements MainView {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        aSwitch = (Switch) findViewById(R.id.switch_all);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Lampkes");
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         presenter.loadLights();
+
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                presenter.toggleAllLights(isChecked);
+            }
+        });
     }
 
     @Override

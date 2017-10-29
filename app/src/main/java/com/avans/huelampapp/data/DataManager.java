@@ -57,6 +57,10 @@ public class DataManager {
         return hueService.manageLightState(preferencesHelper.getUsername(), id, state);
     }
 
+    public Call<SuccessResponse[]> updateAllLightStates(String id, SimpleState state) {
+        return hueService.manageAllLightStates(preferencesHelper.getUsername(), id, state);
+    }
+
     public Call<String> getLightState(String id){
         return hueService.getLightState(preferencesHelper.getUsername(), id);
     }

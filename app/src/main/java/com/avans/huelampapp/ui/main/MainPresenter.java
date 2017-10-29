@@ -55,7 +55,21 @@ public class MainPresenter {
                         loadLights();
                     }
                 });
+    }
 
+    public void toggleAllLights(boolean status){
+        dataManager.updateAllLightStates("0",
+                new SimpleState(status))
+                .enqueue(new Callback<SuccessResponse[]>() {
+                    @Override
+                    public void onResponse(Call<SuccessResponse[]> call, Response<SuccessResponse[]> response) {
+                        loadLights();
+                    }
 
+                    @Override
+                    public void onFailure(Call<SuccessResponse[]> call, Throwable t) {
+                        loadLights();
+                    }
+        });
     }
 }
