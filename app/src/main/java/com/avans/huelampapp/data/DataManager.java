@@ -5,6 +5,7 @@ import android.content.Context;
 import com.avans.huelampapp.BuildConfig;
 import com.avans.huelampapp.data.local.PreferencesHelper;
 import com.avans.huelampapp.data.model.DeviceBody;
+import com.avans.huelampapp.data.model.HueBridge;
 import com.avans.huelampapp.data.model.Light;
 import com.avans.huelampapp.data.model.NameUpdate;
 import com.avans.huelampapp.data.model.SimpleState;
@@ -69,4 +70,11 @@ public class DataManager {
         return hueService.setLightName(preferencesHelper.getUsername(), id, new NameUpdate(name));
     }
 
+    public Call<HueBridge[]> getAvailableBridges() {
+        return hueService.getAvailableBridges("https://www.meethue.com/api/nupnp");
+    }
+
+    public void changeBaseUrl(String baseUrl) {
+        ServiceProvider.instance().changeBaseUrl(baseUrl);
+    }
 }

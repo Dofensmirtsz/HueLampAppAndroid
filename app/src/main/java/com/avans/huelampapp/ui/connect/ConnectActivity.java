@@ -41,6 +41,8 @@ public class ConnectActivity extends BaseActivity implements ConnectView {
 
         presenter.check();
 
+        //presenter.checkForAvailableBridges();
+
         FlowingGradientClass flowingGradientBg = new FlowingGradientClass();
         flowingGradientBg.setBackgroundResource(R.drawable.translate_regular)
                 .onImageView(background)

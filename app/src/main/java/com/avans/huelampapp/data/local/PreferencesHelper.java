@@ -13,6 +13,7 @@ public class PreferencesHelper {
 
     private static final String PREF_FILE_NAME = "hue_lamp_app_prefs";
     public static final String USERNAME = "username";
+    public static final String BASE_URL = "base_url";
 
     private final SharedPreferences pref;
 
@@ -39,6 +40,13 @@ public class PreferencesHelper {
         save(USERNAME, username);
     }
 
+    public String getBaseUrl() {
+        return get(BASE_URL, "");
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        save(BASE_URL, baseUrl);
+    }
     // DO NOT EDIT BELOW
 
     /**

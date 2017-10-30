@@ -13,7 +13,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'API_URL', '"http://10.0.2.2:80/"'
+        //buildConfigField 'String', 'API_URL', '"http://10.0.2.2:80/"'
+        buildConfigField 'String', 'API_URL', '"http://192.168.1.179:80/"'
         //buildConfigField 'String', 'API_URL', '"http://192.168.1.108:80/"'
     }
     buildTypes {

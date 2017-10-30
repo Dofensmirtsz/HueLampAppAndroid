@@ -1,6 +1,7 @@
 package com.avans.huelampapp.data.remote;
 
 import com.avans.huelampapp.data.model.DeviceBody;
+import com.avans.huelampapp.data.model.HueBridge;
 import com.avans.huelampapp.data.model.Light;
 import com.avans.huelampapp.data.model.NameUpdate;
 import com.avans.huelampapp.data.model.SimpleState;
@@ -14,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public interface HueService {
 
@@ -43,5 +45,7 @@ public interface HueService {
     @GET(API + "{username}/lights/{id}/state")
     Call<String> getLightState(@Path(value = "username") String username, @Path(value = "id") String id);
 
+    @GET
+    Call<HueBridge[]> getAvailableBridges(@Url String url);
 
 }

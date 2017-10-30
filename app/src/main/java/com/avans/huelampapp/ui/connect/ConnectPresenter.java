@@ -2,6 +2,7 @@ package com.avans.huelampapp.ui.connect;
 
 import com.avans.huelampapp.data.DataManager;
 import com.avans.huelampapp.data.local.PreferencesHelper;
+import com.avans.huelampapp.data.model.HueBridge;
 import com.avans.huelampapp.data.model.HueError;
 import com.avans.huelampapp.data.model.SuccessResponse;
 
@@ -52,5 +53,26 @@ public class ConnectPresenter {
             view.showSuccess(dataManager.getPreferencesHelper().getUsername());
             return;
         }
+    }
+
+    public void checkForAvailableBridges() {
+
+        dataManager.getAvailableBridges().enqueue(new Callback<HueBridge[]>() {
+            @Override
+            public void onResponse(Call<HueBridge[]> call, Response<HueBridge[]> response) {
+                if (response.body().length > 0) {
+                    dataManager.getPreferencesHelper().save(
+                            PreferencesHelper.BASE_URL, response.body()[0].getInternalipaddress());
+                    dataManager.changeBaseUrl(
+                            dataManager.getPreferencesHelper().getBaseUrl());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HueBridge[]> call, Throwable t) {
+
+            }
+        });
+
     }
 }

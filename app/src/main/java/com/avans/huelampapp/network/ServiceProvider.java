@@ -21,13 +21,22 @@ public class ServiceProvider {
     private Retrofit.Builder builder;
     private Retrofit retrofit;
     private OkHttpClient.Builder httpClient;
+    HttpLoggingInterceptor logging;
 
     private ServiceProvider(){
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(logging);
+        builder = new Retrofit.Builder()
+                .baseUrl(BuildConfig.API_URL)
+                .client(httpClient.build())
+                .addConverterFactory(GsonConverterFactory.create());
+        retrofit = builder.build();
+    }
+
+    public void changeBaseUrl(String newBaseUrl) {
         builder = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
                 .client(httpClient.build())
